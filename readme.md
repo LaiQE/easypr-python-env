@@ -1,19 +1,20 @@
-1. 安装opencv,参考https://blog.csdn.net/public669/article/details/99044895
-https://blog.csdn.net/u013151336/article/details/104686250/
+1. 安装docker, 用基地的系统直接有docker
+2. 编译docker image
 ```shell
-apt-get install build-essential libgtk2.0-dev libavcodec-dev libavformat-dev libjpeg-dev libswscale-dev libtiff5-dev
-apt-get install libgtk2.0-dev
-apt-get install pkg-config
-apt-get install git cmake
-git clone --branch 3.1.0 https://hub.fastgit.org/opencv/opencv.git --depth=1
-cd opencv
-mkdir release //创建release文件夹
-cd release //切换到该文件夹
-//配置输出的参数
-cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/user/local ..
-make   //编译
-make install //安装
-ldconfig //更新动态库
+# 进入目录
+cd easypr-python-env
+# 编译image
+docker build -t easypr-python-env:latest .
 ```
-
+3. 执行xhost
+```shell
+xhost +
+```
+4. 运行docker,如果用docker运行视频,这里改一下，自己百度映射相机到docker内
+```
 docker run -it --rm -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY -v $(pwd):/home/admin/test easypr-python-env:latest
+```
+5. 进入之后,执行python程序
+```shell
+python run_video.py
+```
